@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "PHP files in tt-rss: $(ls tt-rss/*.php | wc -l)"
 
 echo "Injecting configuration file..."
 cp ttrss-config.php tt-rss/config.php
