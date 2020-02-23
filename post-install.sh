@@ -1,4 +1,5 @@
 #!/bin/bash
+git submodule update --init --recursive --remote
 echo "PHP files in tt-rss: $(ls tt-rss/*.php | wc -l)"
 
 echo "Injecting configuration file..."
