@@ -5,6 +5,7 @@ cp ttrss-config.php tt-rss/config.php
 
 echo "Fixing permissions..."
 chmod -R -w tt-rss
+mkdir tt-rss/plugins.local tt-rss/cache tt-rss/lock tt-rss/feed-icons
 chmod +w tt-rss/plugins.local
 chmod -R 777 tt-rss/cache tt-rss/lock tt-rss/feed-icons
 
