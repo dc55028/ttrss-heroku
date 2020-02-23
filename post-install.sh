@@ -1,5 +1,5 @@
 #!/bin/bash
-git submodule update --init --recursive --remote
+git clone https://git.tt-rss.org/fox/tt-rss.git
 echo "PHP files in tt-rss: $(ls tt-rss/*.php | wc -l)"
 
 echo "Injecting configuration file..."
