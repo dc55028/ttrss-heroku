@@ -37,7 +37,16 @@
 	// multiple users and authentication. Enabling this assumes you have
 	// your tt-rss directory protected by other means (e.g. http auth).
 
-	define('SIMPLE_UPDATE_MODE', false);
+  $simple_update_mode = false;
+  if (getenv('SIMPLE_UPDATE_MODE') !== null) {
+    $simple_update_mode = getenv('SIMPLE_UPDATE_MODE');
+    if ($simple_update_mode !== 'true' && $simple_update_mode !== 'false') {
+      die('Wrong value for SIMPLE_UPDATE_MODE');
+    } else {
+      $simple_update_mode = boolval($simple_update_mode);
+    }
+  }
+  define('SIMPLE_UPDATE_MODE', $simple_update_mode);
 	// Enables fallback update mode where tt-rss tries to update feeds in
 	// background while tt-rss is open in your browser.
 	// If you don't have a lot of feeds and don't want to or can't run
