@@ -5,8 +5,9 @@
 
 	$db_components = parse_url(getenv("DATABASE_URL"));
 
-	if ($db_components['scheme'] != 'postgres')
+	if ($db_components['scheme'] != 'postgres') {
 		die('Wrong database url');
+  }
 
 	define('DB_TYPE', "pgsql");
 	define('DB_HOST', $db_components['host']);
@@ -89,7 +90,11 @@
 	// *** Feed settings ***
 	// *********************
 
-	define('FORCE_ARTICLE_PURGE', 5);
+  $force_article_purge = 0;
+  if (getenv('FORCE_ARTICLE_PURGE') !== null) {
+    $force_article_purge = intval(getenv('FORCE_ARTICLE_PURGE'));
+  }
+  define('FORCE_ARTICLE_PURGE', $force_article_purge);
 	// When this option is not 0, users ability to control feed purging
 	// intervals is disabled and all articles (which are not starred)
 	// older than this amount of days are purged.
@@ -172,7 +177,14 @@
 	// Disabling auth_internal in this list would automatically disable
 	// reset password link on the login form.
 
-	define('LOG_DESTINATION', '');
+  $log_destination = '';
+  if (getenv('LOG_DESTINATION') !== null) {
+    $log_destination = getenv('LOG_DESTINATION');
+    if ($log_destination !== 'sql' && $log_destination !== 'syslog') {
+      die('Wrong log destination value');
+    }
+  }
+  define('LOG_DESTINATION', $log_destination);
 	// Error log destination to use. Possible values: sql (uses internal logging
 	// you can read in Preferences -> System), syslog - logs to system log.
 	// Setting this to blank uses PHP logging (usually to http server
