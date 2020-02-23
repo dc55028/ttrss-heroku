@@ -16,7 +16,13 @@ if [ "$DATABASE_URL" ]; then
       psql "$DATABASE_URL" < tt-rss/schema/ttrss_schema_pgsql.sql >/dev/null
   fi
 
+  echo "Installing plugins"
   php plugins-installer.php
+
+  if [ "$TTRSS_ADMIN_PASSWORD" ]; then
+    $ttrss_admin_password=$(php -r "echo 'SHA1:'.sha1(getenv('TTRSS_ADMIN_PASSWORD'));")
+    echo "admin password hash: ${ttrss_admin_password}"
+  fi
 else
   echo "go add a Postgres database addon"
   return 1
