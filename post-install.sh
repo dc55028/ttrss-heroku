@@ -20,7 +20,7 @@ if [ "$DATABASE_URL" ]; then
   php plugins-installer.php
 
   if [ "$TTRSS_ADMIN_PASSWORD" ]; then
-    $ttrss_admin_password=$(php -r 'echo "SHA1:".sha1(getenv('TTRSS_ADMIN_PASSWORD'));')
+    ttrss_admin_password=$(php -r 'echo "SHA1:".sha1(getenv('TTRSS_ADMIN_PASSWORD'));')
     echo "admin password hash: ${ttrss_admin_password}"
   fi
 else
